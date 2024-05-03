@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7abf676e-677b-4f87-95b5-61d34bd47403">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[select  *
+from    credito
+where   estado_credito = 'Pendiente']]>
+	</queryString>
+	<field name="id_credito" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_suscripcion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion_credito" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_credito" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad_cuotas_credito" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto_cuota_credito" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="saldo_credito" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="abonado_credito" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado_credito" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<line>
+				<reportElement uuid="161823c1-c46d-4562-b073-f861227ebb8a" positionType="FixRelativeToBottom" x="101" y="40" width="478" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="101" y="44" width="57" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Cuenta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="101" y="24" width="478" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Payments 2.0]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="e199643d-f33b-4c8b-9165-4865e43621bd" x="1" y="0" width="90" height="72"/>
+				<imageExpression><![CDATA[this.getClass().getResource("/inventory/reportes/logotipo.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="e88344e4-c520-404e-b58f-bc79cb8d0cc2" style="Title" x="101" y="0" width="478" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Creditos Pendientes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="101" y="58" width="57" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Impresion:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="163" y="58" width="98" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4df1965f-1cca-46c3-976b-4f1cde5f7de4" stretchType="RelativeToBandHeight" x="597" y="0" width="85" height="72"/>
+				<imageExpression><![CDATA["C:\\MSIG Payments\\logo_empresa.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="4f699637-80df-433a-8201-93ba712bad0e" x="164" y="44" width="97" height="14"/>
+				<textElement/>
+				<text><![CDATA[Contador al Credito]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="456dce59-92b7-4bc4-8775-28ae6307ffb6" positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="4a05308f-7532-4e46-bbfe-a1bf16d62280" style="Column header" x="0" y="0" width="70" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[ID Credito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="93441d8d-82ac-4fe8-a8a5-a34d87559a06" style="Column header" x="75" y="0" width="89" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[ID Suscripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="91afda1c-9151-4f3c-bdef-2b06b9e8ec68" style="Column header" x="169" y="0" width="150" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7f14493f-f342-4132-a9e6-758584cdb143" style="Column header" x="324" y="0" width="70" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Monto Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7b5bcebc-9cbb-42a6-ac18-a1b5eca8c618" style="Column header" x="399" y="0" width="70" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[No. Cuotas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e413f14a-7e37-4db0-9116-49d616adf117" style="Column header" x="474" y="0" width="80" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Monto Cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dc484473-aebd-4ecc-8507-f27fa2509d93" style="Column header" x="558" y="0" width="60" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dd0c7ed5-e573-451b-b526-e49ee4ffb555" style="Column header" x="623" y="0" width="60" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Abonado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<frame>
+				<reportElement uuid="c83586c6-cb4e-4c76-95c1-4da210b960f4" mode="Opaque" x="0" y="0" width="802" height="12"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="c55b3458-a5ad-428b-a7b3-13e4a044c003" style="Detail" x="0" y="0" width="70" height="12"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_credito}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="fc09ad2d-6209-4f00-98ac-f8c1de0b66b3" style="Detail" x="75" y="0" width="89" height="12"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_suscripcion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="958562c4-5810-4b32-8198-d027ac329825" style="Detail" x="169" y="0" width="150" height="12"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descripcion_credito}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="8d873b7a-06c4-430a-98c3-4815e089848c" style="Detail" x="324" y="0" width="70" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{monto_credito}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="d31c83fb-ef2a-44ec-ab1f-bca27cd5d92a" style="Detail" x="399" y="0" width="70" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cantidad_cuotas_credito}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="ba3a9167-733d-45b8-8ca5-6efeb5deaae8" style="Detail" x="474" y="0" width="80" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{monto_cuota_credito}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="da833e03-dc26-4cee-8ccf-5323535a16a6" style="Detail" x="558" y="0" width="60" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saldo_credito}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="69181a66-7212-4ec3-a858-5a38b06348d5" style="Detail" x="623" y="0" width="60" height="12"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{abonado_credito}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement uuid="c18b063f-8d99-49c4-a4da-6f2d444596cb" positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="999f6f94-e13f-4a96-a106-56dd7f994477" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="b0f957aa-b1ec-453e-83c9-4ec299b1d625" style="Column header" x="664" y="0" width="40" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="4383b350-cac9-480e-8b6b-bdda2d683354" style="Column header" x="584" y="0" width="80" height="20" forecolor="#736343"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="2c56520f-29c9-43dd-8978-944f54221bc1" style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

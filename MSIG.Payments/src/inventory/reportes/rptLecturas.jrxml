@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Toma de Lecturas" pageWidth="595" pageHeight="750" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a18c5149-623d-4778-a544-3a51ac9f1b75">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="P_SERVICIO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_COLONIA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  x.id_cliente,
+        x.id_suscripcion,
+        x.nombre_cliente,
+        x.direccion_cliente,
+        x.contador_suscripcion,
+        ifnull(y.ultima_letura,'') ultima_lectura
+from    (
+select  a.id_cliente, 
+        b.id_suscripcion,
+        a.nombre_cliente, 
+        a.direccion_cliente, 
+        b.contador_suscripcion
+from    cliente as a, 
+        suscripcion as b
+where   a.id_cliente = b.id_cliente
+    and b.id_servicio = $P{P_SERVICIO}
+    and a.colonia_cliente = $P{P_COLONIA}
+order by a.correo_cliente
+) as x,
+(
+select  id_suscripcion,
+        max(nueva_lectura) ultima_letura
+from    lectura
+where   estado_lectura = 'A'
+group by id_suscripcion
+) as y
+where x.id_suscripcion = y.id_suscripcion
+order by x.id_cliente]]>
+	</queryString>
+	<field name="id_cliente" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_suscripcion" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contador_suscripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ultima_lectura" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<image>
+				<reportElement uuid="e199643d-f33b-4c8b-9165-4865e43621bd" x="0" y="5" width="90" height="72"/>
+				<imageExpression><![CDATA[this.getClass().getResource("/inventory/reportes/logotipo.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="100" y="63" width="55" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Colonia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e88344e4-c520-404e-b58f-bc79cb8d0cc2" style="Title" x="100" y="5" width="359" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[TOMA DE LECTURAS]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4df1965f-1cca-46c3-976b-4f1cde5f7de4" stretchType="RelativeToBandHeight" x="470" y="5" width="85" height="72"/>
+				<imageExpression><![CDATA["C:\\MSIG Payments\\logo_empresa.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="100" y="49" width="55" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[ID Servicio:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="162" y="63" width="67" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_COLONIA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="162" y="49" width="67" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_SERVICIO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="161823c1-c46d-4562-b073-f861227ebb8a" positionType="FixRelativeToBottom" x="100" y="45" width="359" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="100" y="29" width="359" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Payments 2.0]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<line>
+				<reportElement uuid="a080942a-b55a-4f20-a520-36c0940841e8" positionType="FixRelativeToBottom" x="0" y="21" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="c5c8635a-63ff-404f-acf0-5c5964639fa6" style="Column header" x="2" y="4" width="57" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[ID Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c5c8635a-63ff-404f-acf0-5c5964639fa6" style="Column header" x="62" y="4" width="164" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c5c8635a-63ff-404f-acf0-5c5964639fa6" style="Column header" x="230" y="4" width="148" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Direccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c5c8635a-63ff-404f-acf0-5c5964639fa6" style="Column header" x="382" y="4" width="57" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Contador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c5c8635a-63ff-404f-acf0-5c5964639fa6" style="Column header" x="502" y="4" width="50" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Nueva]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c5c8635a-63ff-404f-acf0-5c5964639fa6" style="Column header" x="442" y="4" width="55" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Anterior]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="f84f1cfb-f5c0-46fd-bdea-c6a6f047cc60" mode="Opaque" x="1" y="3" width="551" height="10"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="62c6bca7-fff9-4102-acd0-08b7416bf87e" style="Detail" x="0" y="0" width="58" height="10"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_cliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="425edc23-cf39-4de5-b191-b64e0f2d949e" style="Detail" x="61" y="0" width="164" height="10"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre_cliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="3738381e-e9d1-40c8-bf1e-617963ed0e88" style="Detail" x="229" y="0" width="148" height="10"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{direccion_cliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="d6586379-1e01-416f-b57e-ae951d1a7171" style="Detail" x="381" y="0" width="57" height="10"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{contador_suscripcion}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="4a1c9420-2c0c-4b36-85aa-2481e52fddd7" x="501" y="7" width="50" height="1"/>
+				</line>
+			</frame>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d6586379-1e01-416f-b57e-ae951d1a7171" style="Detail" x="440" y="3" width="57" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ultima_lectura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch">
+			<line>
+				<reportElement uuid="cc980202-1eeb-43d7-b205-548062f0415b" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="7" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

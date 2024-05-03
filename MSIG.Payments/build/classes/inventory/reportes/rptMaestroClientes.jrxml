@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a2c6532-ec4a-4c84-853c-e30e3c2d8a56">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[select * from maestro_clientes]]>
+	</queryString>
+	<field name="NIT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefono" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="movil" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="correo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="93" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e88344e4-c520-404e-b58f-bc79cb8d0cc2" style="Title" x="110" y="15" width="596" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[LISTADO DE CLIENTES]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="161823c1-c46d-4562-b073-f861227ebb8a" positionType="FixRelativeToBottom" x="110" y="55" width="596" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="110" y="39" width="596" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Payments 2.0]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="e199643d-f33b-4c8b-9165-4865e43621bd" x="11" y="15" width="89" height="72"/>
+				<imageExpression><![CDATA[this.getClass().getResource("/inventory/reportes/logotipo.jpg")]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4df1965f-1cca-46c3-976b-4f1cde5f7de4" stretchType="RelativeToBandHeight" x="717" y="15" width="85" height="72"/>
+				<imageExpression><![CDATA["C:\\MSIG Payments\\logo_empresa.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="21f00d10-95bf-44d4-9019-7e19dd7832df" positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="0ac3ac1c-b11c-4e73-a8f8-c8e57a58e0c1" style="Column header" x="0" y="0" width="60" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[NIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="06b24559-a7bd-47d5-9905-3547d7f80121" style="Column header" x="66" y="0" width="157" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="06b3798c-fd4e-44c5-acd3-142dfdf478af" style="Column header" x="227" y="0" width="250" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Direccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1f7b8540-a2b7-4b2a-9d50-23897eb49943" style="Column header" x="480" y="0" width="70" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="57501e81-f924-4dfc-b818-d86178e0ea6a" style="Column header" x="556" y="0" width="70" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0a2a3e00-a71a-410f-9fca-c6502358c5eb" style="Column header" x="632" y="0" width="122" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Correo / Correlativo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dd8a691a-55f7-4bf3-a9b2-4d828a5e2515" style="Column header" x="760" y="0" width="42" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="202237f9-da85-4d0f-953f-ff0408159390" mode="Opaque" x="0" y="0" width="802" height="15"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="2c4ce7c4-02ea-4ecd-8e4b-000fdbfcf015" style="Detail" x="0" y="0" width="60" height="14"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NIT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="383752f0-995d-44bc-95d2-ada8a2105c7a" style="Detail" x="66" y="0" width="157" height="14"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="be671700-a740-42bf-b8e4-687db1d4e7ac" style="Detail" x="227" y="0" width="250" height="14"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="ae30e923-e9cd-4434-8f6d-4cc24e1c9d9a" style="Detail" x="480" y="0" width="70" height="14"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="66276a12-d36f-4d76-8430-c4df507ce236" style="Detail" x="556" y="0" width="70" height="14"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{movil}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="842639e7-da2a-44bf-95cc-6a2a6ebb4db8" style="Detail" x="632" y="0" width="122" height="14"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="bac28fe1-a713-4dcf-b529-6f36fd410e28" style="Detail" x="760" y="0" width="42" height="14"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement uuid="313fce95-03e1-4aec-82d1-babafb77d074" positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="e8e001c8-48cd-4ea8-8d5b-236718890232" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="cc45d624-cf8f-4eab-af82-f86bb328cc3e" style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="5813d768-8418-40fd-8869-350a83707c28" style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="4f854f6e-b9d7-42c0-a981-ef768ed56b68" style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

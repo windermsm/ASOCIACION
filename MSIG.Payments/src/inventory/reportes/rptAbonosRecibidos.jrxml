@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="750" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="84674ee0-7fae-4df6-a45b-78cf33a39f14">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="P_MES" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_ANIO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_COLONIA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  a.anio_abono as anio,
+if(a.mes_abono=1,'Enero',if(a.mes_abono=2,'Febrero',if(a.mes_abono=3,'Marzo',if(a.mes_abono=4,'Abril',if(a.mes_abono=5,'Mayo',if(a.mes_abono=6,'Junio',if(a.mes_abono=7,'Julio',if(a.mes_abono=8,'Agosto',if(a.mes_abono=9,'Septiembre',if(a.mes_abono=10,'Octubre',if(a.mes_abono=11,'Noviembre',if(a.mes_abono=12,'Diciembre','')))))))))))) as nombre_mes,
+	a.factura_abono as factura,
+        c.id_cliente as codigo,
+        c.nombre_cliente as cliente,
+        a.fecha_abono as fecha,
+        round(a.pago_abono + a.saldo_abono, 2) as saldo_anterior,
+        round(a.pago_abono, 2) as abono,
+        round(a.saldo_abono, 2) as saldo_actual
+from    abono as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_cobro = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and a.mes_abono = $P{P_MES}
+    and a.anio_abono = $P{P_ANIO}
+    and c.colonia_cliente = $P{P_COLONIA}
+order by a.factura_abono]]>
+	</queryString>
+	<field name="anio" class="java.lang.Integer"/>
+	<field name="nombre_mes" class="java.lang.String"/>
+	<field name="factura" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.Long"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="saldo_anterior" class="java.math.BigDecimal"/>
+	<field name="abono" class="java.math.BigDecimal"/>
+	<field name="saldo_actual" class="java.math.BigDecimal"/>
+	<variable name="V_TOTAL_ANTERIOR" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_anterior}]]></variableExpression>
+	</variable>
+	<variable name="V_TOTAL_ABONO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{abono}]]></variableExpression>
+	</variable>
+	<variable name="V_TOTAL_ACTUAL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_actual}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="89" splitType="Stretch">
+			<image>
+				<reportElement uuid="e199643d-f33b-4c8b-9165-4865e43621bd" x="0" y="5" width="90" height="72"/>
+				<imageExpression><![CDATA[this.getClass().getResource("/inventory/reportes/logotipo.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="100" y="63" width="43" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Mes:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e88344e4-c520-404e-b58f-bc79cb8d0cc2" style="Title" x="100" y="5" width="359" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[ABONOS RECIBIDOS]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4df1965f-1cca-46c3-976b-4f1cde5f7de4" stretchType="RelativeToBandHeight" x="470" y="5" width="85" height="72"/>
+				<imageExpression><![CDATA["C:\\MSIG Payments\\logo_empresa.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="100" y="49" width="43" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Año:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="145" y="63" width="84" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_MES}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="145" y="49" width="84" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_ANIO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="161823c1-c46d-4562-b073-f861227ebb8a" positionType="FixRelativeToBottom" x="100" y="45" width="359" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="100" y="29" width="359" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Payments 2.0]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="281" y="49" width="84" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_COLONIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="236" y="49" width="43" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Colonia:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="5b986a87-5c0f-4284-a7d6-9a6323c111ad" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="91931b41-a31a-4322-984e-1be49ef7f580" style="Column header" x="0" y="0" width="58" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="590787f6-1fb0-4ef4-98f1-66254371f808" style="Column header" x="62" y="0" width="190" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e0fe450b-c926-4443-b0d2-1a52e5d8594b" style="Column header" x="260" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cc73fa75-0e83-4353-84f9-e783baa361f6" style="Column header" x="365" y="0" width="60" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="316fa20e-637c-431e-bc2c-c38f8c4a599a" style="Column header" x="430" y="0" width="60" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Abono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bac66917-df91-4bbb-a39c-05238976e8fa" style="Column header" x="495" y="0" width="60" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="027d479b-9274-4581-a375-45c77382a7d6" mode="Opaque" x="0" y="0" width="555" height="15"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="047b4b08-d547-4fb7-830e-8432b96afca2" style="Detail" x="0" y="0" width="58" height="15"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{factura}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="e2b48ac4-46bf-416c-aa17-d341678c25b9" style="Detail" x="62" y="0" width="190" height="15"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="cd61d763-ba6b-487f-83f9-66968b0431d1" style="Detail" x="260" y="0" width="100" height="15"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="08f340ff-3b14-4ee4-bf96-f02e2ef72558" style="Detail" x="365" y="0" width="60" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saldo_anterior}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="895f12db-6ca2-4f31-a6f5-67c48d941b6e" style="Detail" x="430" y="0" width="60" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{abono}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="0350ad40-b527-444c-9b99-c153f935f4f2" style="Detail" x="495" y="0" width="60" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saldo_actual}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch">
+			<line>
+				<reportElement uuid="814f99d7-b26b-443d-a7ba-c2cf373e1aab" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="11" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="17">
+			<textField isStretchWithOverflow="true" pattern="###0.00;(###0.00)">
+				<reportElement uuid="0350ad40-b527-444c-9b99-c153f935f4f2" style="Detail" x="495" y="0" width="60" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{V_TOTAL_ACTUAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;(###0.00)">
+				<reportElement uuid="895f12db-6ca2-4f31-a6f5-67c48d941b6e" style="Detail" x="430" y="0" width="60" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{V_TOTAL_ABONO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;(###0.00)">
+				<reportElement uuid="08f340ff-3b14-4ee4-bf96-f02e2ef72558" style="Detail" x="365" y="0" width="60" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{V_TOTAL_ANTERIOR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e0fe450b-c926-4443-b0d2-1a52e5d8594b" style="Column header" x="260" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptImpresionAvisos_MesesPendientes" pageWidth="160" pageHeight="50" columnWidth="160" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5cd9b475-4969-4d8c-9c88-0f70c5754b29">
+	<property name="ireport.zoom" value="6.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="20"/>
+	<parameter name="P_ID_SUSCRIPCION" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  monto_cuota_credito as monto,
+        saldo_credito as saldo,
+        concat(convert(round((abonado_credito / monto_cuota_credito) + 1,0) using utf8), '/', convert(cantidad_cuotas_credito using utf8)) as abonos 
+from    credito
+where   id_suscripcion = $P{P_ID_SUSCRIPCION}]]>
+	</queryString>
+	<field name="monto" class="java.math.BigDecimal"/>
+	<field name="saldo" class="java.math.BigDecimal"/>
+	<field name="abonos" class="java.lang.String"/>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{saldo}.doubleValue() > 0.00]]></printWhenExpression>
+			<staticText>
+				<reportElement uuid="044dd047-cb58-46b8-98d4-7dce49d3e3e2" x="5" y="0" width="150" height="16" forecolor="#736343"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COBRO DE CONTADOR]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="a0fed9e7-51be-4dab-b0e1-500d47853ca6" x="5" y="16" width="150" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="2db90cad-f034-4384-ae6b-b2d656be1a3d" x="5" y="18" width="45" height="16" forecolor="#736343"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2db90cad-f034-4384-ae6b-b2d656be1a3d" x="5" y="34" width="45" height="16" forecolor="#736343"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b0717979-0fd2-49ac-b44f-86928e8f8660" x="52" y="18" width="35" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2db90cad-f034-4384-ae6b-b2d656be1a3d" x="91" y="18" width="64" height="16" forecolor="#736343"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No Abono:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b0717979-0fd2-49ac-b44f-86928e8f8660" x="52" y="34" width="35" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b0717979-0fd2-49ac-b44f-86928e8f8660" x="91" y="34" width="64" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{abonos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

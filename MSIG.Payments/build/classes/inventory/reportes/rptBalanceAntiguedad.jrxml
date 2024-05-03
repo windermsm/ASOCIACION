@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="39380210-162a-4d43-9cf8-c962f4566a7e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="P_MES" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_ANIO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select *
+from balance_antiguedad
+where mes = ifnull($P{P_MES}, mes)
+and anio = ifnull($P{P_ANIO}, anio)]]>
+	</queryString>
+	<field name="id_cliente" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="anio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mes" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="servicio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="importe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="recibo" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_recibo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_vencimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="plazo" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vencida" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dias_desde_vencimiento" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="servicio">
+		<groupExpression><![CDATA[$F{servicio}]]></groupExpression>
+		<groupHeader>
+			<band height="27">
+				<textField>
+					<reportElement uuid="7d9813a7-8d69-4b30-9422-617fb2299dce" style="SubTitle" x="0" y="5" width="554" height="18" forecolor="#736343"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<image>
+				<reportElement uuid="e199643d-f33b-4c8b-9165-4865e43621bd" x="0" y="5" width="90" height="72"/>
+				<imageExpression><![CDATA[this.getClass().getResource("/inventory/reportes/logotipo.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="100" y="63" width="43" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Mes:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e88344e4-c520-404e-b58f-bc79cb8d0cc2" style="Title" x="100" y="5" width="359" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[BALANCE DE ANTIGUEDAD]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4df1965f-1cca-46c3-976b-4f1cde5f7de4" stretchType="RelativeToBandHeight" x="470" y="5" width="85" height="72"/>
+				<imageExpression><![CDATA["C:\\MSIG Payments\\logo_empresa.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="100" y="48" width="43" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Año:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="145" y="63" width="84" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_MES}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="145" y="48" width="84" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_ANIO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="161823c1-c46d-4562-b073-f861227ebb8a" positionType="FixRelativeToBottom" x="100" y="45" width="359" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="100" y="29" width="359" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Payments 2.0]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<line>
+				<reportElement uuid="1a3e81e0-4a55-4759-8462-8b9c63e3a557" positionType="FixRelativeToBottom" x="0" y="30" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="ea5910e7-552e-45b4-b328-a3a78ccff609" style="Column header" x="1" y="0" width="166" height="30" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Nombre del cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="321c12f8-d076-4dff-ac49-13737fc11085" style="Column header" x="170" y="0" width="50" height="30" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Importe Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f03207d7-badb-4175-a850-7ed3119a569b" style="Column header" x="224" y="0" width="50" height="30" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[No. Recibo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5a80735f-2635-4da7-a39a-46c29c8d3098" style="Column header" x="277" y="0" width="61" height="30" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha Recibo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3b5c6f3a-f8ab-4996-8377-53e20c097228" style="Column header" x="341" y="0" width="55" height="30" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha Vencido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8a7316c1-2326-4aa3-9c4f-23977293950b" style="Column header" x="399" y="0" width="50" height="30" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ Plazo Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a28fa8c5-e5b0-4564-8564-ae9740cf154a" style="Column header" x="452" y="0" width="50" height="30" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Recibo Vencido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="609bcdef-8e10-4228-bedf-776c9e5c8863" style="Column header" x="505" y="0" width="50" height="30" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Dias Vencido]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="af9b5f7c-331c-440f-8b26-c78098edbcbd" mode="Opaque" x="0" y="0" width="555" height="15"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="685a2f05-3997-43fb-bf34-f49b06134f6d" style="Detail" x="8" y="0" width="28" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_cliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="0e96c2ec-b6b3-4436-8894-20077f53e339" style="Detail" x="47" y="0" width="120" height="15"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="32961fab-5512-4b91-b7c5-9ab337343bf3" style="Detail" x="170" y="0" width="50" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="dda8ac05-fd66-46d5-bf19-e627a830494d" style="Detail" x="224" y="0" width="50" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{recibo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="dcc4d168-8933-48b5-8c16-e9ca59e86a13" style="Detail" x="277" y="0" width="61" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fecha_recibo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="bf9fb751-d2fa-4d46-9bc7-866c612db80f" style="Detail" x="341" y="0" width="55" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fecha_vencimiento}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="81615442-e5c9-4912-a474-4ce46097689b" style="Detail" x="399" y="0" width="50" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{plazo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="695a5154-04c3-4bea-846b-ff2569df4085" style="Detail" x="452" y="0" width="50" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vencida}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="96c578de-a724-4baf-88cf-38d83c5c3ac4" style="Detail" x="505" y="0" width="50" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dias_desde_vencimiento}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="b7e758e6-681f-4639-8689-80570e36b29c" x="36" y="0" width="5" height="15"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<text><![CDATA[]]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="b7e758e6-681f-4639-8689-80570e36b29c" x="1" y="0" width="7" height="15"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<text><![CDATA[[]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch">
+			<line>
+				<reportElement uuid="35e22256-ee8b-4844-8633-d1a75560f02d" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="10" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

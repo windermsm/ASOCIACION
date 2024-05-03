@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7071c9b-4ada-444c-bae8-960319188c10">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="P_ANIO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_COLONIA" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  x.suscripcion as suscripcion,
+        x.cliente as cliente,
+        sum(x.enero) as enero,
+        sum(x.febrero) as febrero,
+        sum(x.marzo) as marzo,
+        sum(x.abril) as abril,
+        sum(x.mayo) as mayo,
+        sum(x.junio) as junio,
+        sum(x.julio) as julio,
+        sum(x.agosto) as agosto,
+        sum(x.septiembre) as septiembre,
+        sum(x.octubre) as octubre,
+        sum(x.noviembre) as noviembre,
+        sum(x.diciembre) as diciembre
+from (
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        if(a.estado_cobro='G', a.total_cobro, 0) as Enero,
+        0 as febrero,
+        0 as marzo,
+        0 as abril,
+        0 as mayo,
+        0 as junio,
+        0 as julio,
+        0 as agosto,
+        0 as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 1
+ 
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        if(a.estado_cobro='G', a.total_cobro, 0) as febrero,
+        0 as marzo,
+        0 as abril,
+        0 as mayo,
+        0 as junio,
+        0 as julio,
+        0 as agosto,
+        0 as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 2
+    
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        if(a.estado_cobro='G', a.total_cobro, 0) as marzo,
+        0 as abril,
+        0 as mayo,
+        0 as junio,
+        0 as julio,
+        0 as agosto,
+        0 as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 3
+
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        0 as marzo,
+        if(a.estado_cobro='G', a.total_cobro, 0) as abril,
+        0 as mayo,
+        0 as junio,
+        0 as julio,
+        0 as agosto,
+        0 as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 4
+
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        0 as marzo,
+        0 as abril,
+        if(a.estado_cobro='G', a.total_cobro, 0) as mayo,
+        0 as junio,
+        0 as julio,
+        0 as agosto,
+        0 as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 5
+
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        0 as marzo,
+        0 as abril,
+        0 as mayo,
+        if(a.estado_cobro='G', a.total_cobro, 0) as junio,
+        0 as julio,
+        0 as agosto,
+        0 as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 6
+
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        0 as marzo,
+        0 as abril,
+        0 as mayo,
+        0 as junio,
+        if(a.estado_cobro='G', a.total_cobro, 0) as julio,
+        0 as agosto,
+        0 as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 7
+
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        0 as marzo,
+        0 as abril,
+        0 as mayo,
+        0 as junio,
+        0 as julio,
+        if(a.estado_cobro='G', a.total_cobro, 0) as agosto,
+        0 as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 8
+
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        0 as marzo,
+        0 as abril,
+        0 as mayo,
+        0 as junio,
+        0 as julio,
+        0 as agosto,
+        if(a.estado_cobro='G', a.total_cobro, 0) as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 9
+
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        0 as marzo,
+        0 as abril,
+        0 as mayo,
+        0 as junio,
+        0 as julio,
+        0 as agosto,
+        0 as septiembre,
+        if(a.estado_cobro='G', a.total_cobro, 0) as octubre,
+        0 as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 10
+
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        0 as marzo,
+        0 as abril,
+        0 as mayo,
+        0 as junio,
+        0 as julio,
+        0 as agosto,
+        0 as septiembre,
+        0 as octubre,
+        if(a.estado_cobro='G', a.total_cobro, 0) as noviembre,
+        0 as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 11
+
+union all
+
+select  a.id_suscripcion as suscripcion,
+        c.nombre_cliente cliente,
+        0 as Enero,
+        0 as febrero,
+        0 as marzo,
+        0 as abril,
+        0 as mayo,
+        0 as junio,
+        0 as julio,
+        0 as agosto,
+        0 as septiembre,
+        0 as octubre,
+        0 as noviembre,
+        if(a.estado_cobro='G', a.total_cobro, 0) as diciembre
+from    cobro as a,
+        suscripcion as b,
+        cliente as c
+where   a.id_suscripcion = b.id_suscripcion
+    and b.id_cliente = c.id_cliente
+    and c.colonia_cliente = $P{P_COLONIA}
+    and a.anio_cobro = $P{P_ANIO}
+    and a.mes_cobro  = 12
+
+) as x
+group by x.suscripcion, x.cliente]]>
+	</queryString>
+	<field name="suscripcion" class="java.lang.Long"/>
+	<field name="cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="enero" class="java.math.BigDecimal"/>
+	<field name="febrero" class="java.math.BigDecimal"/>
+	<field name="marzo" class="java.math.BigDecimal"/>
+	<field name="abril" class="java.math.BigDecimal"/>
+	<field name="mayo" class="java.math.BigDecimal"/>
+	<field name="junio" class="java.math.BigDecimal"/>
+	<field name="julio" class="java.math.BigDecimal"/>
+	<field name="agosto" class="java.math.BigDecimal"/>
+	<field name="septiembre" class="java.math.BigDecimal"/>
+	<field name="octubre" class="java.math.BigDecimal"/>
+	<field name="noviembre" class="java.math.BigDecimal"/>
+	<field name="diciembre" class="java.math.BigDecimal"/>
+	<variable name="V_ENE" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{enero}]]></variableExpression>
+	</variable>
+	<variable name="V_FEB" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{febrero}]]></variableExpression>
+	</variable>
+	<variable name="V_MAR" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{marzo}]]></variableExpression>
+	</variable>
+	<variable name="V_ABR" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{abril}]]></variableExpression>
+	</variable>
+	<variable name="V_MAY" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{mayo}]]></variableExpression>
+	</variable>
+	<variable name="V_JUN" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{junio}]]></variableExpression>
+	</variable>
+	<variable name="V_JUL" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{julio}]]></variableExpression>
+	</variable>
+	<variable name="V_AGO" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{agosto}]]></variableExpression>
+	</variable>
+	<variable name="V_SEP" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{septiembre}]]></variableExpression>
+	</variable>
+	<variable name="V_OCT" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{octubre}]]></variableExpression>
+	</variable>
+	<variable name="V_NOV" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{noviembre}]]></variableExpression>
+	</variable>
+	<variable name="V_DIC" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{diciembre}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="86" splitType="Stretch">
+			<image>
+				<reportElement uuid="e199643d-f33b-4c8b-9165-4865e43621bd" x="1" y="0" width="90" height="72"/>
+				<imageExpression><![CDATA[this.getClass().getResource("/inventory/reportes/logotipo.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="101" y="58" width="43" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Colonia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e88344e4-c520-404e-b58f-bc79cb8d0cc2" style="Title" x="101" y="0" width="605" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[MOROSOS POR MES]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4df1965f-1cca-46c3-976b-4f1cde5f7de4" stretchType="RelativeToBandHeight" x="717" y="0" width="85" height="72"/>
+				<imageExpression><![CDATA["C:\\MSIG Payments\\logo_empresa.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="101" y="44" width="43" height="14"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Año:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="146" y="58" width="84" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_COLONIA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47921b38-cdc7-4e91-8671-1544c8f7c6a4" style="Detail" x="146" y="44" width="84" height="14"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_ANIO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="161823c1-c46d-4562-b073-f861227ebb8a" positionType="FixRelativeToBottom" x="101" y="40" width="605" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="91a8915f-d49f-4191-af0e-f7fb7f7aa758" style="SubTitle" x="101" y="24" width="605" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Payments 2.0]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="9595e1ba-1680-45e4-8a08-491e4c5500a6" positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="190ff852-d6f7-49ab-8e0c-af2d6510b974" style="Column header" x="0" y="0" width="68" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Suscipcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28a18ac0-6b7a-4513-a086-55844a7ce526" style="Column header" x="68" y="0" width="150" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1be5316-08d1-42a5-b24f-0fe9756826e6" style="Column header" x="218" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[ENE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4157a738-ec64-4574-9d7c-f845d953e0ef" style="Column header" x="263" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[FEB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2716407-2b07-4f37-acc6-7b2ae4718a81" style="Column header" x="308" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[MAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2f5be918-d7ca-4c17-8b0c-954824928479" style="Column header" x="353" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[ABR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9710098a-5a7c-47b0-a131-997bcfaf7c85" style="Column header" x="398" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[MAY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="50c9897f-a3d2-4d09-9932-14c174809227" style="Column header" x="443" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[JUN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8367d12b-9b52-49d8-914e-dc0dc2d95e3f" style="Column header" x="488" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[JUL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="133c41db-0cb1-4312-bb40-759ff8a7c5b9" style="Column header" x="533" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[AGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="61bce83c-49f5-4707-9e5e-bdf9040f15e3" style="Column header" x="578" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[SEP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="61e9538f-256c-4439-98aa-b8aba3228b2d" style="Column header" x="623" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[OCT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a60608b5-1591-4fce-ae16-b412263b0c86" style="Column header" x="668" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[NOV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="399dbba5-05c0-4ed1-b05a-1031b0a9be69" style="Column header" x="713" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[DIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="399dbba5-05c0-4ed1-b05a-1031b0a9be69" style="Column header" x="757" y="0" width="45" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="996974c8-2bfd-4121-ae78-06b95846134c" mode="Opaque" x="0" y="0" width="802" height="15"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="22f8403a-83e3-4f6b-b303-109588890b2c" style="Detail" x="0" y="0" width="68" height="15"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{suscripcion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="3027095a-a9c9-4c63-9444-16103bd9f31b" style="Detail" x="68" y="0" width="150" height="15"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="b9c25c0a-8dbc-4166-a164-e1c591b3ac06" style="Detail" x="218" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{enero}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="bd5ac7a0-dcca-4ee3-9c07-4b13e1e56ab1" style="Detail" x="263" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{febrero}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="f913c599-3285-42d0-ae68-749ca661cc71" style="Detail" x="308" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{marzo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="3f25669c-23a2-46e6-9716-d5f12180525f" style="Detail" x="353" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{abril}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="e2bfcdec-da43-46a9-9166-03d83b4bc80a" style="Detail" x="398" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mayo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="00e41b89-7c2b-4503-8616-027d387987a2" style="Detail" x="443" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{junio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="438e5e53-c3ff-4dc1-9da3-aaf92f95e7d3" style="Detail" x="488" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{julio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="4a76d256-2ee2-45da-85ea-2e7c7df84bda" style="Detail" x="533" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{agosto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="67baa7a5-e01c-4cda-8955-b861dba87f46" style="Detail" x="578" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{septiembre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="c97b1d98-6fa1-4ae6-982a-9bde2622c0a2" style="Detail" x="623" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{octubre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="754c9083-1571-4467-80c6-2a7f645e79d8" style="Detail" x="668" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{noviembre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="493dd697-d36e-4368-a864-ef6565fccb91" style="Detail" x="713" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{diciembre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+					<reportElement uuid="493dd697-d36e-4368-a864-ef6565fccb91" style="Detail" x="757" y="0" width="45" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{enero}.floatValue() + $F{febrero}.floatValue() + $F{marzo}.floatValue() + $F{abril}.floatValue() + $F{mayo}.floatValue() + $F{junio}.floatValue() + $F{julio}.floatValue() +$F{agosto}.floatValue() + $F{septiembre}.floatValue() + $F{octubre}.floatValue() + $F{noviembre}.floatValue() +$F{diciembre}.floatValue()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch">
+			<line>
+				<reportElement uuid="6160308f-0094-4b99-8857-235f42eaf1c7" positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="10" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="26">
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="b9c25c0a-8dbc-4166-a164-e1c591b3ac06" style="Detail" x="218" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_ENE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="3f25669c-23a2-46e6-9716-d5f12180525f" style="Detail" x="353" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_ABR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="438e5e53-c3ff-4dc1-9da3-aaf92f95e7d3" style="Detail" x="488" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_JUL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="bd5ac7a0-dcca-4ee3-9c07-4b13e1e56ab1" style="Detail" x="263" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_FEB}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="493dd697-d36e-4368-a864-ef6565fccb91" style="Detail" x="713" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_DIC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="754c9083-1571-4467-80c6-2a7f645e79d8" style="Detail" x="668" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_NOV}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="00e41b89-7c2b-4503-8616-027d387987a2" style="Detail" x="443" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_JUN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="67baa7a5-e01c-4cda-8955-b861dba87f46" style="Detail" x="578" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_SEP}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="c97b1d98-6fa1-4ae6-982a-9bde2622c0a2" style="Detail" x="623" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_OCT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="e2bfcdec-da43-46a9-9166-03d83b4bc80a" style="Detail" x="398" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_MAY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="493dd697-d36e-4368-a864-ef6565fccb91" style="Detail" x="757" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_ENE} + $V{V_FEB} + $V{V_MAR} + $V{V_ABR} + $V{V_MAY} + $V{V_JUN} + $V{V_JUL} + $V{V_AGO} + $V{V_SEP} + $V{V_OCT} + $V{V_NOV} + $V{V_DIC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="4a76d256-2ee2-45da-85ea-2e7c7df84bda" style="Detail" x="533" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_AGO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
+				<reportElement uuid="f913c599-3285-42d0-ae68-749ca661cc71" style="Detail" x="308" y="7" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_MAR}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="08b0d334-3e93-4504-9316-b8a973bc817a" x="1" y="3" width="801" height="1"/>
+			</line>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
